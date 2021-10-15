@@ -27,8 +27,7 @@ public struct WrapStack<Model, V>: View where Model: Hashable, V: View {
                 self.generateContent(in: geometry)
             }
         }
-        .frame(height: totalHeight)// << variant for ScrollView/List
-                                   //.frame(maxHeight: totalHeight) // << variant for VStack
+        .modifier(HeightModifier())
     }
     
     private func generateContent(in geometry: GeometryProxy) -> some View {
@@ -62,16 +61,7 @@ public struct WrapStack<Model, V>: View where Model: Hashable, V: View {
                         return result
                     })
             }
-        }.background(viewHeightReader($totalHeight))
-    }
-    
-    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
-        return GeometryReader { geometry -> Color in
-            let rect = geometry.frame(in: .local)
-            DispatchQueue.main.async {
-                binding.wrappedValue = rect.size.height
-            }
-            return .clear
         }
+        .preference(key: HeightPreference.self, value: totalHeight)
     }
 }

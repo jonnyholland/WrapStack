@@ -2,10 +2,9 @@ import XCTest
 @testable import WrapStack
 
 final class WrapStackTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(WrapStack().text, "Hello, World!")
+    func testView() throws {
+        //Test runs to make sure the body can get built and displayed.
+        let view = ExampleView().body
+        XCTAssertNoThrow(view, "View setup")
     }
 }
