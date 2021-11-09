@@ -62,6 +62,16 @@ public struct WrapStack<Model, V>: View where Model: Hashable, V: View {
                     })
             }
         }
+        .background(viewHeightReader($totalHeight))
         .preference(key: HeightPreference.self, value: totalHeight)
+    }
+    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
+        return GeometryReader { geometry -> Color in
+            let rect = geometry.frame(in: .local)
+            DispatchQueue.main.async {
+                binding.wrappedValue = rect.size.height
+            }
+            return .clear
+        }
     }
 }

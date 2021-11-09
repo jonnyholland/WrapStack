@@ -45,14 +45,11 @@ public struct ExampleView: View {
     }
 }
 
+#if DEBUG
 public struct ExampleView_Previews: PreviewProvider {
     
     public static var previews: some View {
-        WrapStack(imageNames) { imageName in
-            HStack {
-                Image(systemName: imageName)
-                Text(imageName)
-            }
-        }
+        ExampleView()
     }
 }
+#endif
